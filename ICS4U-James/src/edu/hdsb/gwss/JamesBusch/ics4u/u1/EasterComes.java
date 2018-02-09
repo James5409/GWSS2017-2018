@@ -27,6 +27,7 @@ public class EasterComes {
         //final outputs
         int a,b,c,d,e,f,g,h,i,j,k,m,p;
         //eq varibles
+       
         
         System.out.println("This program takes any given year and figures out when easter will be");
         //user intro
