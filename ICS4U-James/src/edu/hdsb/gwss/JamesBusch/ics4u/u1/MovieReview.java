@@ -4,6 +4,8 @@
 package edu.hdsb.gwss.JamesBusch.ics4u.u1;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -31,7 +33,14 @@ public class MovieReview {
         // MOVIE REVIEW FILE
         File reviews = new File( "/Users/jamers444/NetBeansProjects/ICS4U-James/ICS4U-James/data/movie.review/MovieReviews.txt" );
         File wordList = new File("/Users/jamers444/NetBeansProjects/ICS4U-James/ICS4U-James/data/movie.review/negTest.txt");
+        File compareWords = new File("/Users/jamers444/NetBeansProjects/ICS4U-James/ICS4U-James/data/movie.review/userInput.txt");
         //file inilization
+        
+        double x;
+        
+        
+       
+        mutipleWordScore(compareWords, reviews);
     }
 
     /**
@@ -75,17 +84,25 @@ public class MovieReview {
     public static double wordAverage( String word, File reviews ) throws Exception {
         double totalScore;
         double numOfWords;
+        double answer;
+        
         int[] finalAnswers;
         finalAnswers = readLineByLine(word, reviews);
         totalScore = finalAnswers[TOTAL_SCORE];
         numOfWords = finalAnswers[WORD_COUNT];
-        return totalScore/numOfWords;
+        if(numOfWords == 0){
+            answer = 0;
+        }else{
+            answer = totalScore/numOfWords;
+            }  
+        System.out.println(answer);
+        return answer;
        
     }
 
     /**
      * This method returns the average movie review score of the words in the
-     * file, given th specified movie review file.
+     * file, given the specified movie review file.
      * @param wordList list of words to be tested
      * @param reviews file of all reviews
      * @return the average score of all words combined 
@@ -95,10 +112,15 @@ public class MovieReview {
         Scanner userData = new Scanner(wordList);    
         double currScore = 0;
         int i = 0;
+        String currLine;
 
         while(userData.hasNextLine()){
-            currScore = currScore + wordAverage(userData.nextLine(),reviews);
-            i++;
+            currLine = userData.nextLine();
+            System.out.println(currLine);
+            currScore = currScore + wordAverage(currLine,reviews);
+            if(wordCount(currLine, reviews) != 0){ 
+                i++;
+            }
         }
         return currScore / i;
     }
@@ -117,22 +139,51 @@ public class MovieReview {
         double worstScore = 4;
         String bestWord = null;
         String worstWord = null;
+        String currWord;
+        
         
         while(userData.hasNextLine()){
-            currScore = wordAverage(userData.nextLine(),reviews);
+            currWord = userData.nextLine();
+            currScore = wordAverage(currWord,reviews);
             if(currScore > bestScore){
                 bestScore = currScore;
-                bestWord = userData.toString();
+                bestWord = currWord;
             }else if(currScore < worstScore){
                 worstScore = currScore;
-                worstWord = userData.toString();
+                worstWord = currWord;
             }   
             System.out.println("The worst word is " + worstWord + " with a " + worstScore);
             System.out.println("The best word is " + bestWord + "with a " + bestScore);   
         }
     }
     
-
+    public static void wordSort(File wordList, File reviews) throws Exception{
+        Scanner userData = new Scanner(wordList);
+        FileWriter badWords = new FileWriter("/Users/jamers444/NetBeansProjects/ICS4U-James/ICS4U-James/data/movie.review/negative.txt");
+        FileWriter goodWords = new FileWriter("/Users/jamers444/NetBeansProjects/ICS4U-James/ICS4U-James/data/movie.review/positive.txt");
+        PrintWriter printBadWords = new PrintWriter(badWords);
+        PrintWriter printGoodWords = new PrintWriter(goodWords);
+        int i = 0;
+        double score;
+        System.out.println("done start");
+        
+        while(userData.hasNextLine()){
+            score = wordAverage(userData.nextLine(), reviews);
+            if(score >= 2.1){
+                printBadWords.println(userData.toString());
+            }else if(score <= 1.9){
+                printGoodWords.println(userData.toString());
+            }
+            System.out.println(i++);
+        }
+        
+        badWords.close();
+        goodWords.close();
+        printBadWords.close();
+        printGoodWords.close();
+        
+        
+    }
     
     
     /**
