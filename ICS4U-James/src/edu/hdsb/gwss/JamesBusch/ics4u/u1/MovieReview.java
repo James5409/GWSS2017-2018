@@ -8,12 +8,14 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.Scanner;
 import java.util.StringTokenizer;
-
+//imports
 /**
  * Movie Review Assignment
  *
- * @author Wm.Muir
- * @version 2017-18.S2
+ * @author James Busch
+ * @version 20/2/18 v1
+ * @description This program has multiple functions to do with using a word file contaning a review
+ * 
  */
 public class MovieReview {
     
@@ -32,11 +34,9 @@ public class MovieReview {
 
         // MOVIE REVIEW FILE
         File reviews = new File( "/Users/jamers444/NetBeansProjects/ICS4U-James/ICS4U-James/data/movie.review/MovieReviews.txt" );
-        File wordList = new File("/Users/jamers444/NetBeansProjects/ICS4U-James/ICS4U-James/data/movie.review/negTest.txt");
-        File compareWords = new File("/Users/jamers444/NetBeansProjects/ICS4U-James/ICS4U-James/data/movie.review/userInput.txt");
         Scanner input = new Scanner(System.in);
         File userWordList;
-        //file inilization
+        //object inilization
         
         int userNumber;
         String userWord;
@@ -49,14 +49,14 @@ public class MovieReview {
             System.out.println("3: Find the highest/lowest scoring words in a file");
             System.out.println("4: Sort words from a file into a positive.txt and negative.txt");
             System.out.println("5 exit the program");
-            userNumber = input.nextInt();
+            userNumber = Integer.parseInt(input.nextLine());
         
             switch(userNumber){
                 case 1:
                     System.out.println("Enter a word");
                     userWord = input.nextLine();
-                    System.out.println("The word appears " + wordCount(userWord, reviews) + "times");
-                    System.out.println("The average score for reviews contaning " + userWord + "is" + wordAverage(userWord, reviews));
+                    System.out.println("The word appears " + wordCount(userWord, reviews) + " times");
+                    System.out.println("The average score for reviews contaning " + userWord + "is " + wordAverage(userWord, reviews));
                     break;      
                 case 2:
                     System.out.println("Enter the name of the file you want to find the average to");
@@ -64,7 +64,7 @@ public class MovieReview {
                     userWord = "/Users/jamers444/NetBeansProjects/ICS4U-James/ICS4U-James/data/movie.review/" + userWord;
                     userWordList = new File(userWord);
                     double listScore = sentenceAverage(userWordList, reviews);
-                    System.out.println("The average score for the list is" + listScore);
+                    System.out.println("The average score for the list is " + listScore);
                     if(listScore >= 2){
                         System.out.println("The overall sentimate is positive");
                     }else{
@@ -84,13 +84,13 @@ public class MovieReview {
                     userWord = "/Users/jamers444/NetBeansProjects/ICS4U-James/ICS4U-James/data/movie.review/" + userWord;
                     userWordList = new File(userWord);
                     wordSort(userWordList, reviews);
+                    break;
                 case 5:
                     inProgress = false;
                     break;
                 default:
                     break;
-        }
-        
+            }
         }
         
     }
@@ -165,11 +165,16 @@ public class MovieReview {
         Scanner userData = new Scanner(wordList);    
         double currScore = 0;
         int i = 0;
+        int[] total;
+        int totalScore;
+        int totalWords;
         String currLine;
 
         while(userData.hasNextLine()){
             currLine = userData.nextLine();
-            currScore = currScore + wordAverage(currLine,reviews);
+            total = readLineByLine(currLine, reviews);
+            totalScore = total[TOTAL_SCORE];
+            totalWords = total[WORD_COUNT];
             if(wordCount(currLine, reviews) != 0){ 
                 i++;
             }
@@ -200,7 +205,7 @@ public class MovieReview {
             if(currScore > bestScore){
                 bestScore = currScore;
                 bestWord = currWord;
-            }else if(currScore < worstScore){
+            }else if(currScore < worstScore && currScore != 0){
                 worstScore = currScore;
                 worstWord = currWord;
             }   
@@ -213,27 +218,28 @@ public class MovieReview {
     public static void wordSort(File wordList, File reviews) throws Exception{
         Scanner userData = new Scanner(wordList);
         
-        BufferedWriter badWords = new BufferedWriter(new FileWriter("/Users/jamers444/NetBeansProjects/ICS4U-James/ICS4U-James/data/movie.review/negative.txt"));
-        BufferedWriter goodWords = new BufferedWriter(new FileWriter("/Users/jamers444/NetBeansProjects/ICS4U-James/ICS4U-James/data/movie.review/positive.txt"));
+        FileWriter badFile = new FileWriter("/Users/jamers444/NetBeansProjects/ICS4U-James/ICS4U-James/data/movie.review/negative.txt");
+        FileWriter goodFile = new FileWriter("/Users/jamers444/NetBeansProjects/ICS4U-James/ICS4U-James/data/movie.review/positive.txt");
         
-        int i = 0;
+        BufferedWriter badWords = new BufferedWriter(badFile);
+        BufferedWriter goodWords = new BufferedWriter(goodFile);
+  
         double score;
         String currWord;
-        System.out.println("done start");
         
         while(userData.hasNextLine()){
             currWord = userData.nextLine();
             score = wordAverage(currWord, reviews);
             if(score >= 2.1){
-                goodWords.write(currWord + "\n");
+                goodWords.append(currWord + "\n");
             }else if(score <= 1.9){
-                badWords.write(currWord + "\n");
+                badWords.append(currWord + "\n");
             }
-            System.out.println(i++);
+           
         }
-        
         badWords.close();
-        goodWords.close();    
+        goodWords.close();
+         
     }
     
     
