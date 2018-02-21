@@ -33,7 +33,8 @@ public class MovieReview {
     public static void main( String[] args ) throws Exception {
 
         // MOVIE REVIEW FILE
-        File reviews = new File( "/Users/jamers444/NetBeansProjects/ICS4U-James/ICS4U-James/data/movie.review/MovieReviews.txt" );
+        //File reviews = new File( "/Users/jamers444/NetBeansProjects/ICS4U-James/ICS4U-James/data/movie.review/MovieReviews.txt" );
+        File reviews = new File( "./data/movie.review/MovieReviews.txt" );
         Scanner input = new Scanner(System.in);
         File userWordList;
         //object inilization
@@ -56,12 +57,12 @@ public class MovieReview {
                     System.out.println("Enter a word");
                     userWord = input.nextLine();
                     System.out.println("The word appears " + wordCount(userWord, reviews) + " times");
-                    System.out.println("The average score for reviews contaning " + userWord + "is " + wordAverage(userWord, reviews));
+                    System.out.println("The average score for reviews contaning " + userWord + " is " + wordAverage(userWord, reviews));
                     break;      
                 case 2:
                     System.out.println("Enter the name of the file you want to find the average to");
                     userWord = input.nextLine();
-                    userWord = "/Users/jamers444/NetBeansProjects/ICS4U-James/ICS4U-James/data/movie.review/" + userWord;
+                    userWord = "./data/movie.review/" + userWord;
                     userWordList = new File(userWord);
                     double listScore = sentenceAverage(userWordList, reviews);
                     System.out.println("The average score for the list is " + listScore);
@@ -74,14 +75,14 @@ public class MovieReview {
                 case 3:
                     System.out.println("Enter the name of the file you want to give words to");
                     userWord = input.nextLine();
-                    userWord = "/Users/jamers444/NetBeansProjects/ICS4U-James/ICS4U-James/data/movie.review/" + userWord;
+                    userWord = "./data/movie.review/" + userWord;
                     userWordList = new File(userWord);
                     mutipleWordScore(userWordList, reviews);
                     break;
                 case 4:
                     System.out.println("Enter the name of the file you want to sort");
                     userWord = input.nextLine();
-                    userWord = "/Users/jamers444/NetBeansProjects/ICS4U-James/ICS4U-James/data/movie.review/" + userWord;
+                    userWord = "./data/movie.review/" + userWord;
                     userWordList = new File(userWord);
                     wordSort(userWordList, reviews);
                     break;
@@ -163,7 +164,6 @@ public class MovieReview {
      */
     public static double sentenceAverage( File wordList, File reviews ) throws Exception {
         Scanner userData = new Scanner(wordList);    
-        double currScore = 0;
         
         int[] total;
         int totalScore = 0;
@@ -216,8 +216,8 @@ public class MovieReview {
     public static void wordSort(File wordList, File reviews) throws Exception{
         Scanner userData = new Scanner(wordList);
         
-        FileWriter badFile = new FileWriter("/Users/jamers444/NetBeansProjects/ICS4U-James/ICS4U-James/data/movie.review/negative.txt");
-        FileWriter goodFile = new FileWriter("/Users/jamers444/NetBeansProjects/ICS4U-James/ICS4U-James/data/movie.review/positive.txt");
+        FileWriter badFile = new FileWriter("./data/movie.review/negative.txt");
+        FileWriter goodFile = new FileWriter("./data/movie.review/positive.txt");
         
         BufferedWriter badWords = new BufferedWriter(badFile);
         BufferedWriter goodWords = new BufferedWriter(goodFile);
