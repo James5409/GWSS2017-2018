@@ -164,10 +164,10 @@ public class MovieReview {
     public static double sentenceAverage( File wordList, File reviews ) throws Exception {
         Scanner userData = new Scanner(wordList);    
         double currScore = 0;
-        int i = 0;
+        
         int[] total;
-        int totalScore;
-        int totalWords;
+        int totalScore = 0;
+        int totalWords = 0;
         String currLine;
 
         while(userData.hasNextLine()){
@@ -175,11 +175,9 @@ public class MovieReview {
             total = readLineByLine(currLine, reviews);
             totalScore = total[TOTAL_SCORE];
             totalWords = total[WORD_COUNT];
-            if(wordCount(currLine, reviews) != 0){ 
-                i++;
-            }
+            
         }
-        return currScore / i;
+        return totalScore / (double)totalWords;
     }
     
     /**
