@@ -93,7 +93,6 @@ public class MovieReview {
                     break;
             }
         }
-        
     }
 
     /**
@@ -151,7 +150,6 @@ public class MovieReview {
             }  
       
         return answer;
-
     }
 
     /**
