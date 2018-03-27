@@ -165,11 +165,15 @@ public class MountainPaths {
     public static void drawMap( Graphics g, int[][] data ) {
         int minValue = findMinValue(data);
         int maxValue = findMaxValue(data);
-        int divider = minValue + maxValue;
-        int colourScale;
+        double divider = minValue + maxValue;
+        double colourScale;
+        int dataHolder;
         for (int row = 0; row < data.length; row++) {
             for (int col = 0; col < data[0].length; col++) {
-                colourScale = (data[row][col] / divider) * 255;
+                dataHolder = data[row][col];
+                colourScale = (dataHolder / divider) * 255;
+                g.setColor(new Color((int)colourScale,(int)colourScale,(int)colourScale));
+                g.fillRect(col, row, 1, 1);
             }
         }
         
@@ -184,8 +188,17 @@ public class MountainPaths {
      * @return the index of smallest value from grid at the given col
      */
     public static int indexOfMinInCol( int[][] grid, int col ) {
-        // TODO
-        return -1;
+        int smallestNum = grid[0][col];
+        int smallestIndex = 0;
+        
+        for (int row = 0; row < grid.length; row++) {
+            if(grid[row][col] < smallestNum){
+            smallestNum = grid[row][col];
+            smallestIndex = row;
+        }
+            
+        }
+        return smallestIndex;
     }
 
     /**
