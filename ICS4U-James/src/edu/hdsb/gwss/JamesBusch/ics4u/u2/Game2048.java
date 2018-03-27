@@ -5,6 +5,8 @@
  */
 package edu.hdsb.gwss.JamesBusch.ics4u.u2;
 
+import java.awt.Color;
+import java.awt.event.KeyEvent;
 import javax.swing.JLabel;
 
 /**
@@ -17,90 +19,216 @@ public class Game2048 extends javax.swing.JFrame {
      * Creates new form Game2048
      */
     private static final int EMPTY = 0;
-    
-    
+
+    private static Color[] colours = {
+        new Color(255, 0, 0),
+        new Color(255, 0, 255),
+        new Color(100, 50, 200),
+        new Color(20, 255, 100)
+    };
     private JLabel[][] squares;
     private int[][] values;
-    
+
     public Game2048() {
         initComponents();
-        
+
         squares = new JLabel[4][4];
-        
-        
-        
+        values = new int[4][4];
+
         squares[0][0] = jLabel00;
         squares[0][1] = jLabel01;
         squares[0][2] = jLabel02;
         squares[0][3] = jLabel03;
-        
+
         squares[1][0] = jLabel10;
         squares[1][1] = jLabel11;
         squares[1][2] = jLabel12;
         squares[1][3] = jLabel13;
-        
+
         squares[2][0] = jLabel20;
         squares[2][1] = jLabel21;
         squares[2][2] = jLabel22;
         squares[2][3] = jLabel23;
-        
+
         squares[3][0] = jLabel30;
         squares[3][1] = jLabel31;
         squares[3][2] = jLabel32;
         squares[3][3] = jLabel33;
-        
+
         //clear game board
-        clearBoard();
-        
+        //clearBoard();
+        // TEST DATA
+        values[0][0] = 0;
+        values[0][3] = 2;
+
+        // TEST DATA
+        values[1][0] = 2;
+        values[1][2] = 2;
+
+        // TEST DATA
+        values[2][1] = 2;
+        values[2][3] = 2;
+
+        // TEST DATA
+        values[3][1] = 2;
+        values[3][2] = 2;
+        values[3][3] = 2;
+
+        // UPDATE BOARD
+        updateBoard();
+
     }
 
-    public void clearBoard(){
-        
+    public void clearBoard() {
+
         values = new int[4][4];
-        
-        
+
         for (int r = 0; r < squares.length; r++) {
             for (int c = 0; c < squares[r].length; c++) {
-                squares[r][c].setText( "" );
+                squares[r][c].setText("");
             }
         }
-        
+
         placeRandomTwo();
         placeRandomTwo();
-        
+
     }
-    
-    private void placeRandomTwo(){
+
+    private void placeRandomTwo() {
         boolean placed = false;
-        
+
         int r, c;
-        
-        while(!placed){
-            r = (int)(Math.random() * 4);
-            c = (int)(Math.random() * 4);
-            
-            if(values[r][c] == EMPTY){
+
+        while (!placed) {
+            r = (int) (Math.random() * 4);
+            c = (int) (Math.random() * 4);
+
+            if (values[r][c] == EMPTY) {
                 values[r][c] = 2;
                 squares[r][c].setText("2");
                 placed = true;
             }
-            
+
         }
-    
+
     }
-    
-    
-    public void updateBoard(){
+
+    public void updateBoard() {
         for (int r = 0; r < squares.length; r++) {
             for (int c = 0; c < squares[r].length; c++) {
-                squares[r][c].setText( values[r][c] + "" );
+                squares[r][c].setText(values[r][c] + "");
+                squares[r][c].setBackground(colours[3]);
             }
-        }  
+        }
         //vaulues arrat --> upadte jLabels
     }
-    
-    
-    
+
+    public void shiftLeft() {
+        for (int row = 0; row < values.length; row++) {
+            for (int pass = 0; pass < values.length - 1; pass++) {
+                for (int col = 1; col < squares.length; col++) {
+                    if (values[row][col] != 0 && values[row][col - 1] == 0) {
+                        swapCells(row, col, row, col - 1);
+                    }
+                }
+            }
+        }
+    }
+
+    public void mergeLeft() {
+        for (int c = 0; c < squares.length - 1; c++) {
+            for (int i = 0; i < squares.length - 1; i++) {
+                for (int r = 0; r < squares[c].length; r++) {
+                    if (values[r][c] == values[r][c + 1]) {
+                        values[r][c] = values[r][c] * 2;
+                        values[r][c + 1] = 0;
+                    }
+                }
+            }
+        }
+    }
+
+    public void shiftRight() {
+        for (int row = 0; row < values.length; row++) {
+            for (int pass = 0; pass < values.length - 1; pass++) {
+                for (int col = values.length - 2; col >= 0; col--) {
+                    if (values[row][col] != 0 && values[row][col + 1] == 0) {
+                        swapCells(row, col, row, col + 1);
+                    }
+                }
+            }
+        }
+    }
+
+    public void mergeRight() {
+        for (int c = values.length - 2; c > 0; c--) {
+            for (int i = 0; i < squares.length - 1; i++) {
+                for (int r = 0; r < squares[c].length; r++) {
+                    if (values[r][c] == values[r][c + 1]) {
+                        values[r][c] = values[r][c] * 2;
+                        values[r][c + 1] = 0;
+                    }
+                }
+            }
+        }
+    }
+
+    public void shiftUp() {
+        for (int col = 0; col < values.length; col++) {
+            for (int pass = 0; pass < values.length - 1; pass++) {
+                for (int row = 1; row < squares.length; row++) {
+                    if (values[row][col] != 0 && values[row - 1][col] == 0) {
+                        swapCells(row, col, row - 1, col);
+                    }
+                }
+            }
+        }
+    }
+
+    public void mergeUp() {
+        for (int r = 0; r < squares.length - 1; r++) {
+            for (int i = 0; i < squares.length - 1; i++) {
+                for (int c = 0; c < squares.length; c++) {
+                    if (values[r][c] == values[r + 1][c]) {
+                        values[r][c] = values[r][c] * 2;
+                        values[r + 1][c] = 0;
+                    }
+                }
+            }
+        }
+    }
+
+    public void shiftDown() {
+        for (int col = values.length - 1; col >= 0; col--) {
+            for (int pass = 0; pass < values.length - 1; pass++) {
+                for (int row = values.length - 2; row >= 0; row--) {
+                    if (values[row][col] != 0 && values[row + 1][col] == 0) {
+                        swapCells(row, col, row + 1, col);
+                    }
+                }
+            }
+        }
+    }
+
+    public void mergeDown() {//TODO FIX THIA
+        for (int r = squares.length - 2; r >= 0; r--) {
+            for (int i = 0; i < squares.length - 1; i++) {
+                for (int c = squares.length - 1; c >= 0; c--) {
+                    if (values[r][c] == values[r + 1][c]) {
+                        values[r][c] = values[r][c] * 2;
+                        values[r + 1][c] = 0;
+                    }
+                }
+            }
+        }
+    }
+
+    public void swapCells(int r1, int c1, int r2, int c2) {
+        int holder = values[r1][c1];
+        values[r1][c1] = values[r2][c2];
+        values[r2][c2] = holder;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -131,6 +259,11 @@ public class Game2048 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("2048 my d00ds");
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jPanelTopPanel.setBackground(new java.awt.Color(255, 102, 255));
 
@@ -399,6 +532,43 @@ public class Game2048 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+        System.out.print("KEY PRESSED: ");
+        switch (evt.getKeyCode()) {
+            case KeyEvent.VK_UP:
+                System.out.println("UP");
+                shiftUp();
+                mergeUp();
+                shiftUp();
+                updateBoard();
+                break;
+            case KeyEvent.VK_DOWN:
+                System.out.println("DOWN");
+                shiftDown();
+                mergeDown();
+                shiftDown();
+                updateBoard();
+                break;
+            case KeyEvent.VK_LEFT:
+                System.out.println("LEFT");
+                shiftLeft();
+                mergeLeft();
+                shiftLeft();
+                updateBoard();
+                break;
+            case KeyEvent.VK_RIGHT:
+                System.out.println("RIGHT");
+                shiftRight();
+                mergeRight();
+                shiftRight();
+                updateBoard();
+                break;
+        }
+
+
+    }//GEN-LAST:event_formKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -430,7 +600,7 @@ public class Game2048 extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Game2048().setVisible(true);
-                
+
             }
         });
     }
