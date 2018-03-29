@@ -105,14 +105,11 @@ public class MountainPaths {
             st = new StringTokenizer(scanner.nextLine());
             c = 0;
             while(st.hasMoreTokens()){
-               data[r][c] = Integer.parseInt(st.nextToken());
+                data[r][c] = Integer.parseInt(st.nextToken());
                 c++;
             }
             r++;
         }
-        
-        
-        
         System.out.println("done");
         scanner.close();
         return data;
@@ -129,11 +126,9 @@ public class MountainPaths {
                 if(grid[j][i] < min ){
                     min = grid[j][i];
                 }
-            }
-            
+            } 
         }
         return min;
-
     }
 
     /**
@@ -147,8 +142,7 @@ public class MountainPaths {
                     if(grid[j][i] > max ){
                     max = grid[j][i];
                 }
-            }
-            
+            } 
         }
         return max;
     }
@@ -175,8 +169,7 @@ public class MountainPaths {
                 g.setColor(new Color((int)colourScale,(int)colourScale,(int)colourScale));
                 g.fillRect(col, row, 1, 1);
             }
-        }
-        
+        }  
     }
 
     /**
@@ -193,10 +186,9 @@ public class MountainPaths {
         
         for (int row = 0; row < grid.length; row++) {
             if(grid[row][col] < smallestNum){
-            smallestNum = grid[row][col];
-            smallestIndex = row;
-        }
-            
+                smallestNum = grid[row][col];
+                smallestIndex = row;
+            }   
         }
         return smallestIndex;
     }
@@ -212,10 +204,51 @@ public class MountainPaths {
      * @return total elevation of the route
      */
     public static int drawLowestElevPath( Graphics g, int[][] data, int row, int col ) {
+        int deltaUp;
+        int deltaMiddle;
+        int deltaDown;
+        if(row < 0 || col < 0) return -1;
+        if(col >= data[0].length - 1) return 0;
+       
+        int currHeight = data[row][col];
+        if(row == 0) {
+            deltaUp = Integer.MAX_VALUE;
+            deltaDown = Math.abs(data[row + 1][col + 1] - currHeight);    
+            }
+        else if(row >= data.length - 1){ 
+            deltaDown = Integer.MAX_VALUE;
+            deltaUp = Math.abs(data[row - 1][col + 1] - currHeight);
+        }else{
+            deltaUp = Math.abs(data[row - 1][col + 1] - currHeight);
+            deltaDown = Math.abs(data[row + 1][col + 1] - currHeight);
+        }
+        deltaMiddle = Math.abs(data[row][col + 1] - currHeight);
         
-        // TODO
-
-        return -1;
+        
+        int newRow;
+        int currChange;
+        if(deltaMiddle <= deltaUp && deltaMiddle <= deltaDown){
+            newRow = row;
+            currChange = deltaMiddle;
+        }else if(deltaUp < deltaDown){
+            newRow = row - 1;
+            currChange = deltaUp;
+        }else if(deltaDown < deltaUp){
+            newRow = row + 1;
+            currChange = deltaDown;
+        }else{
+            if(Math.round(Math.random()) == 1){
+                newRow = row - 1;
+                currChange = deltaUp;
+            }else{
+                newRow = row + 1;
+                currChange = deltaDown;
+            }
+        }
+        g.fillRect(col + 1, newRow, 1, 1);
+        return currChange + drawLowestElevPath(g, data, newRow, col + 1);
+        
+        
     }
 
     /**
@@ -228,9 +261,21 @@ public class MountainPaths {
      * starts.
      */
     public static int indexOfLowestElevPath( Graphics g, int[][] data ) {
-
-        // TODO
-        return -1;
+        int currChange;
+        int leastChange = Integer.MAX_VALUE;
+        int bestIndex = 0;
+        for (int i = 0; i < data.length; i++) {
+            currChange = drawLowestElevPath(g, data, i, 0);
+            if(currChange < leastChange){
+                bestIndex = i;
+                leastChange = currChange;
+            }
+        }
+        System.out.println(leastChange);
+        System.out.println(bestIndex);
+        return bestIndex;
     }
+    
+    
 
 }
