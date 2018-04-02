@@ -21,7 +21,6 @@ public class MountainPaths {
         // 
         System.out.println( "TASK 1: READ DATA" );
         int[][] data = read( "Colorado.844x480.dat" );
-
         // ***********************************
         // Construct DrawingPanel, and get its Graphics context
         //
@@ -56,7 +55,7 @@ public class MountainPaths {
         //
         System.out.println( "TASK 4B: PATH from LOWEST STARTING ELEVATION" );
         g.setColor( Color.RED );
-        int totalChange = drawLowestElevPath( g, data, minRow, 0 ); //
+        int totalChange = drawLowestElevPath( g, data, 11, 0 ); //
         System.out.println( "\tLowest-Elevation-Change Path starting at row " + minRow + " gives total change of: " + totalChange );
 
         // ***********************************
@@ -90,7 +89,7 @@ public class MountainPaths {
         Scanner scanner = new Scanner(heightData);
         StringTokenizer st = new StringTokenizer(scanner.nextLine());
         int row = 1;
-        int col=st.countTokens();
+        int col = st.countTokens();
         while(scanner.hasNextLine()){
             scanner.nextLine();
             row++;
@@ -99,16 +98,16 @@ public class MountainPaths {
         
         scanner = new Scanner(heightData);
         
-        int r = 0;
-        int c;
+        row = 0;
+        col = 0;
         while(scanner.hasNextLine()){
             st = new StringTokenizer(scanner.nextLine());
-            c = 0;
+            col = 0;
             while(st.hasMoreTokens()){
-                data[r][c] = Integer.parseInt(st.nextToken());
-                c++;
+                data[row][col] = Integer.parseInt(st.nextToken());
+                col++;
             }
-            r++;
+            row++;
         }
         System.out.println("done");
         scanner.close();
@@ -207,15 +206,15 @@ public class MountainPaths {
         int deltaUp;
         int deltaMiddle;
         int deltaDown;
-        if(row < 0 || col < 0) return -1;
-        if(col >= data[0].length - 1) return 0;
+        if(row < 0 || col < 0) return -1;//error case
+        if(col == data[0].length - 1) return 0;//base case
        
         int currHeight = data[row][col];
-        if(row == 0) {
+        if(row == 0) {//if row is at the top sets change up to max int so it dosent pick up
             deltaUp = Integer.MAX_VALUE;
             deltaDown = Math.abs(data[row + 1][col + 1] - currHeight);    
             }
-        else if(row >= data.length - 1){ 
+        else if(row == data.length - 1){ //if rows at bottem then sets change down to max int
             deltaDown = Integer.MAX_VALUE;
             deltaUp = Math.abs(data[row - 1][col + 1] - currHeight);
         }else{
@@ -223,8 +222,7 @@ public class MountainPaths {
             deltaDown = Math.abs(data[row + 1][col + 1] - currHeight);
         }
         deltaMiddle = Math.abs(data[row][col + 1] - currHeight);
-        
-        
+        //middle is consistant
         int newRow;
         int currChange;
         if(deltaMiddle <= deltaUp && deltaMiddle <= deltaDown){
@@ -246,9 +244,8 @@ public class MountainPaths {
             }
         }
         g.fillRect(col + 1, newRow, 1, 1);
-        return currChange + drawLowestElevPath(g, data, newRow, col + 1);
-        
-        
+        //System.out.println(deltaUp + " " + deltaMiddle + " " + deltaDown);
+        return currChange + drawLowestElevPath(g, data, newRow, col + 1);   
     }
 
     /**
@@ -266,13 +263,15 @@ public class MountainPaths {
         int bestIndex = 0;
         for (int i = 0; i < data.length; i++) {
             currChange = drawLowestElevPath(g, data, i, 0);
-            if(currChange < leastChange){
+//                System.out.println(currChange);
+//                System.out.println(i);
+            if(currChange <= leastChange){
                 bestIndex = i;
                 leastChange = currChange;
+//                System.out.println(currChange);
+//                System.out.println(i);
             }
         }
-        System.out.println(leastChange);
-        System.out.println(bestIndex);
         return bestIndex;
     }
     
