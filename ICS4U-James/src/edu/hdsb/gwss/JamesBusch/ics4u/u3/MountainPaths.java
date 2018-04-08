@@ -1,13 +1,15 @@
 /*
  * Mountain Paths - Greedy Algorithm
- * Mr. Muir
- * 2018.03.26 - v1.0
+ * ICS4U1
+ * James Busch
+ * 2018.04.07 - v1.0
  */
 package edu.hdsb.gwss.JamesBusch.ics4u.u3;
 
 import java.util.*;
 import java.io.*;
 import java.awt.*;
+//imports
 
 public class MountainPaths {
 
