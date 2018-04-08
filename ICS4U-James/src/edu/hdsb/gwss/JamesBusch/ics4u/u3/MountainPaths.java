@@ -89,8 +89,8 @@ public class MountainPaths {
         Scanner scanner = new Scanner(heightData);
         StringTokenizer st = new StringTokenizer(scanner.nextLine());
         int row = 1;
-        int col = st.countTokens();
-        while(scanner.hasNextLine()){
+        int col = st.countTokens();//counts cols
+        while(scanner.hasNextLine()){//counts amount of rows
             scanner.nextLine();
             row++;
         }
@@ -109,7 +109,6 @@ public class MountainPaths {
             }
             row++;
         }
-        System.out.println("done");
         scanner.close();
         return data;
     }
@@ -158,13 +157,13 @@ public class MountainPaths {
     public static void drawMap( Graphics g, int[][] data ) {
         int minValue = findMinValue(data);
         int maxValue = findMaxValue(data);
-        double divider = minValue + maxValue;
+        double divider = minValue + maxValue;//adds highest and lowest value for readability
         double colourScale;
         int dataHolder;
-        for (int row = 0; row < data.length; row++) {
+        for (int row = 0; row < data.length; row++) {//draws each pixel
             for (int col = 0; col < data[0].length; col++) {
-                dataHolder = data[row][col];
-                colourScale = (dataHolder / divider) * 255;
+                dataHolder = data[row][col];//readablitiy
+                colourScale = (dataHolder / divider) * 256;
                 g.setColor(new Color((int)colourScale,(int)colourScale,(int)colourScale));
                 g.fillRect(col, row, 1, 1);
             }
@@ -183,7 +182,7 @@ public class MountainPaths {
         int smallestNum = grid[0][col];
         int smallestIndex = 0;
         
-        for (int row = 0; row < grid.length; row++) {
+        for (int row = 0; row < grid.length; row++) {//checks each row
             if(grid[row][col] < smallestNum){
                 smallestNum = grid[row][col];
                 smallestIndex = row;
@@ -203,7 +202,7 @@ public class MountainPaths {
      * @return total elevation of the route
      */
     public static int drawLowestElevPath( Graphics g, int[][] data, int row, int col ) {
-        int deltaUp;
+        int deltaUp;//delta is change in elevation
         int deltaMiddle;
         int deltaDown;
         if(row < 0 || col < 0) return -1;//error case
@@ -225,7 +224,7 @@ public class MountainPaths {
         //middle is consistant
         int newRow;
         int currChange;
-        if(deltaMiddle <= deltaUp && deltaMiddle <= deltaDown){
+        if(deltaMiddle <= deltaUp && deltaMiddle <= deltaDown){//checks the direction to travel
             newRow = row;
             currChange = deltaMiddle;
         }else if(deltaUp < deltaDown){
@@ -235,7 +234,7 @@ public class MountainPaths {
             newRow = row + 1;
             currChange = deltaDown;
         }else{
-            if(Math.round(Math.random()) == 1){
+            if(Math.round(Math.random()) == 1){//coin flip
                 newRow = row - 1;
                 currChange = deltaUp;
             }else{
@@ -244,7 +243,6 @@ public class MountainPaths {
             }
         }
         g.fillRect(col + 1, newRow, 1, 1);
-        //System.out.println(deltaUp + " " + deltaMiddle + " " + deltaDown);
         return currChange + drawLowestElevPath(g, data, newRow, col + 1);   
     }
 
@@ -261,15 +259,12 @@ public class MountainPaths {
         int currChange;
         int leastChange = Integer.MAX_VALUE;
         int bestIndex = 0;
+        //declaring varibles
         for (int i = 0; i < data.length; i++) {
             currChange = drawLowestElevPath(g, data, i, 0);
-//                System.out.println(currChange);
-//                System.out.println(i);
             if(currChange <= leastChange){
                 bestIndex = i;
                 leastChange = currChange;
-//                System.out.println(currChange);
-//                System.out.println(i);
             }
         }
         return bestIndex;
