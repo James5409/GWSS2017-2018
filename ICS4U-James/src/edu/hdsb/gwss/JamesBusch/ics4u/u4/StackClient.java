@@ -19,7 +19,7 @@ public class StackClient {
         for (int i = 0; i < stackTestOne.capacity(); i++) {
             stackTestOne.push(i);
         }
-        stackTestOne.push(100000);
+        
         
             
         }
