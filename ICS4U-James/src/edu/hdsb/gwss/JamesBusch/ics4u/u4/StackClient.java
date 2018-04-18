@@ -16,12 +16,33 @@ public class StackClient {
      */
     public static void main(String[] args) {
         Stack stackTestOne = new Stack(10);
+        assert stackTestOne.isEmpty() == true;
         for (int i = 0; i < stackTestOne.capacity(); i++) {
             stackTestOne.push(i);
+            System.out.print(stackTestOne.top());
+            System.out.print(" ");
+            assert stackTestOne.isEmpty() == false;
         }
+        System.out.println("");
+        System.out.println("-is full test-");
+        assert stackTestOne.isFull() == true;
+        System.out.println("-capacity test-");
+        assert stackTestOne.capacity() == 10;
+        System.out.println("-top num test-");
+        assert stackTestOne.top() == 9;
+        System.out.println("-size test-");
+        assert stackTestOne.size() == 0;
+        System.out.println("-empty test-");
+        assert stackTestOne.isEmpty() == false;
         
-        
-            
+        for (int i = stackTestOne.capacity(); i > 0; i--) {
+            assert stackTestOne.pop() == i - 1;
+            System.out.print(i);
+            System.out.print(" ");
+        }
+        assert stackTestOne.isEmpty() == true;  
+        System.out.println("-should return error-");
+        stackTestOne.pop();
         }
     }
     

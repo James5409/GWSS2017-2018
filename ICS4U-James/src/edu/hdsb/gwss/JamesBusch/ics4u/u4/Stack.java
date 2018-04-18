@@ -35,9 +35,11 @@ public class Stack implements StackInterface{
     @Override
     public int pop() {
         int returnNum = -1;
-        if(isEmpty() == false){
+        if(isEmpty() == false){ 
             returnNum = stackArray[pointer];
-        }else System.err.println("Can not pop stack with no data in it");
+            pointer--;
+            }
+        else System.err.println("Can not pop stack with no data in it");
         return returnNum;
     }
 
@@ -47,7 +49,7 @@ public class Stack implements StackInterface{
             pointer++;
             stackArray[pointer] = value;
         }else{
-            System.err.println("Index " + value + " outofbounds");
+            System.err.println("Index outofbounds can not push anymore data");
         }
     }
 

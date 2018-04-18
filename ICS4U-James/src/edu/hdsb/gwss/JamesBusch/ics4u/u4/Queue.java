@@ -52,13 +52,13 @@ public class Queue implements QueueInterface{
             if(backPointer == queueArray.length - 1){
                 backPointer = 0;
                 queueArray[backPointer] = value;
-            }//TODO REST OF CASES
-            
+            }else{
+                backPointer++;
+                queueArray[backPointer] = value;
+            }
         }
-        
     }
     
-
     @Override
     public Integer dequeue() {//pushes out front number
         Integer r = null;
@@ -67,7 +67,6 @@ public class Queue implements QueueInterface{
         }
         if(frontPointer != queueArray.length - 1) frontPointer++;
         else frontPointer = 0;
-        
         return r;
     }
 
@@ -76,7 +75,6 @@ public class Queue implements QueueInterface{
         int r = 0;
         if(backPointer >= frontPointer) r = (backPointer - frontPointer) + 1;
         else{
-           // r = (queueArray.length -backPointer) - frontPointer + 1;
            r = (queueArray.length - frontPointer) + backPointer + 1;
         }
         return r;
@@ -102,7 +100,8 @@ public class Queue implements QueueInterface{
 
     @Override
     public void makeEmpty() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        frontPointer = -1;
+        backPointer = -1;
     }
 
 }
