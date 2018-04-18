@@ -18,6 +18,7 @@ public class Stack implements StackInterface{
     
     public Stack(){
         stackArray = new int[5];
+        System.err.println("");
     }
     
     public Stack(int size){

@@ -20,8 +20,8 @@ public class Queue implements QueueInterface{
         queueArray = new int[5];
     }
     
-    public Queue(int size){
-        queueArray = new int[size];
+    public Queue(int capacity){
+        queueArray = new int[capacity];
     }
 
     @Override
@@ -43,19 +43,28 @@ public class Queue implements QueueInterface{
     }
 
     @Override
-    public void enqueue(Integer value) {
-        if(backPointer >= frontPointer){
+    public void enqueue(Integer value) {//adds another num to the front pointer
+        if(backPointer == queueArray.length - 1 && frontPointer == 0){
+            System.err.println("can not enqueue a full queue");
+        }else if(backPointer == frontPointer - 1){
+            System.err.println("can not enqueue a full queue");
+        }else{
+            if(backPointer == queueArray.length - 1){
+                backPointer = 0;
+                queueArray[backPointer] = value;
+            }//TODO REST OF CASES
             
         }
+        
     }
+    
 
     @Override
-    public Integer dequeue() {
+    public Integer dequeue() {//pushes out front number
         Integer r = null;
         if(!isEmpty()){
             r = queueArray[frontPointer];
         }
-        
         if(frontPointer != queueArray.length - 1) frontPointer++;
         else frontPointer = 0;
         
@@ -66,7 +75,10 @@ public class Queue implements QueueInterface{
     public int size() {
         int r = 0;
         if(backPointer >= frontPointer) r = (backPointer - frontPointer) + 1;
-        else r = (frontPointer - backPointer) + 1;
+        else{
+           // r = (queueArray.length -backPointer) - frontPointer + 1;
+           r = (queueArray.length - frontPointer) + backPointer + 1;
+        }
         return r;
     }
 
@@ -77,7 +89,7 @@ public class Queue implements QueueInterface{
 
     @Override
     public boolean isEmpty() {
-        return (backPointer == -1);
+        return (backPointer == -1 || frontPointer == backPointer);
     }
 
     @Override
