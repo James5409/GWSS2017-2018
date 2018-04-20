@@ -1,7 +1,9 @@
 /*
- * Stack object
  * James Busch
  * 12/04/18
+ * Stack data type
+ * This data type holds ints >= 0 in a LIFO stack
+ * The capacity is defined at the start by the user and can not grow
  */
 
 package edu.hdsb.gwss.JamesBusch.ics4u.u4;
@@ -25,11 +27,16 @@ public class Stack implements StackInterface{
         stackArray = new int[size];
     }
 
+//    public void printData(){
+//        System.out.format(format, args);
+//    }
+    
+    
     @Override
     public int top() {
-        if(!isEmpty())return stackArray[pointer];
-        System.err.println("Can not check top of array with no data");
-        return -1;
+        int r = -1;
+        if(!isEmpty())r = stackArray[pointer];
+        return r;
     }
 
     @Override
@@ -39,7 +46,7 @@ public class Stack implements StackInterface{
             returnNum = stackArray[pointer];
             pointer--;
             }
-        else System.err.println("Can not pop stack with no data in it");
+        else System.err.println("Can't pop stack with no data in it");
         return returnNum;
     }
 
@@ -49,13 +56,14 @@ public class Stack implements StackInterface{
             pointer++;
             stackArray[pointer] = value;
         }else{
-            System.err.println("Index outofbounds can not push anymore data");
+            System.err.println("Index outofbounds can't push anymore data");
         }
     }
 
     @Override
     public int size() {
-        return stackArray.length - (pointer + 1); 
+        //return stackArray.length - (pointer + 1); 
+        return pointer + 1;
     }
 
     @Override
@@ -71,6 +79,7 @@ public class Stack implements StackInterface{
     @Override
     public boolean isFull() {
         return (pointer + 1 == stackArray.length);
+      
     }
 
     @Override

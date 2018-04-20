@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * James Busch
+ * 20/4/18
+ * Stack client tester
+ * checks errors in object functions
  */
 package edu.hdsb.gwss.JamesBusch.ics4u.u4;
 
@@ -17,13 +18,16 @@ public class StackClient {
     public static void main(String[] args) {
         Stack stackTestOne = new Stack(10);
         assert stackTestOne.isEmpty() == true;
+        assert stackTestOne.top() == -1;
+        assert stackTestOne.isFull() == false;
         for (int i = 0; i < stackTestOne.capacity(); i++) {
             stackTestOne.push(i);
             System.out.print(stackTestOne.top());
             System.out.print(" ");
             assert stackTestOne.isEmpty() == false;
+            assert stackTestOne.size() == i + 1;
         }
-        System.out.println("");
+        System.out.println("-After stack fill data-");
         System.out.println("-is full test-");
         assert stackTestOne.isFull() == true;
         System.out.println("-capacity test-");
@@ -31,7 +35,7 @@ public class StackClient {
         System.out.println("-top num test-");
         assert stackTestOne.top() == 9;
         System.out.println("-size test-");
-        assert stackTestOne.size() == 0;
+        assert stackTestOne.size() == 10;
         System.out.println("-empty test-");
         assert stackTestOne.isEmpty() == false;
         
@@ -42,7 +46,7 @@ public class StackClient {
         }
         assert stackTestOne.isEmpty() == true;  
         System.out.println("-should return error-");
-        stackTestOne.pop();
+        stackTestOne.pop();//this seems to show up at the secound line instead of the last one
         }
     }
     
