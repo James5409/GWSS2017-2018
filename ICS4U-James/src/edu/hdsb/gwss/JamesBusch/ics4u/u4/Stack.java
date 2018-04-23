@@ -26,11 +26,6 @@ public class Stack implements StackInterface{
     public Stack(int size){
         stackArray = new int[size];
     }
-
-//    public void printData(){
-//        System.out.format(format, args);
-//    }
-    
     
     @Override
     public int top() {

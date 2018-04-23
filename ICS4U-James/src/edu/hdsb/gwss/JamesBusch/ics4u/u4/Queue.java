@@ -12,27 +12,51 @@ package edu.hdsb.gwss.JamesBusch.ics4u.u4;
  * @author jamers444
  */
 public class Queue implements QueueInterface {
-
+    //class varibiles
+    private static int DEFULT_SIZE = 5;
+    
     private int[] queueArray;
     private int frontPointer = 0;
     private int backPointer = -1;
 
+    /**
+     *
+     */
     public Queue() {
-        queueArray = new int[5];
+        queueArray = new int[DEFULT_SIZE];
     }
 
+    /**
+     *
+     * @param capacity th
+     */
     public Queue(int capacity) {
         queueArray = new int[capacity];
     }
 
+    /**
+     *
+     * @return
+     */
     public int getFrontPointer() {
         return frontPointer;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getBackPointer() {
         return backPointer;
     }
 
+    /**
+     * This object method lets you look at the front of the queue without
+     * changing it
+     *
+     * @return Integer value at the front of the the queue, else if queue is
+     * empty return null
+     */
     @Override
     public Integer front() {
         Integer r = null;
@@ -42,6 +66,10 @@ public class Queue implements QueueInterface {
         return r;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Integer back() {
         Integer r = null;
@@ -51,6 +79,10 @@ public class Queue implements QueueInterface {
         return r;
     }
 
+    /**
+     *
+     * @param value
+     */
     @Override
     public void enqueue(Integer value) {//adds another num to the front pointer
         if (backPointer == queueArray.length - 1 && frontPointer == 0) {
@@ -68,6 +100,13 @@ public class Queue implements QueueInterface {
         }
     }
 
+    /**
+     * This method takes the number from the front of the queue and returns it
+     * and pushes up the queue
+     *
+     * @return integer value at the back of the queue, else if queue is empty
+     * return null
+     */
     @Override
     public Integer dequeue() {//pushes out front number
         Integer r = null;
@@ -83,10 +122,13 @@ public class Queue implements QueueInterface {
         } else {
             System.err.println("Can't dequeue a empty queue");
         }
-
         return r;
     }
 
+    /**
+     * 
+     * @return a int of the size the stored data takes up
+     */
     @Override
     public int size() {
         int r;
@@ -103,16 +145,28 @@ public class Queue implements QueueInterface {
         return r;
     }
 
+    /**
+     * Lets the user see how big the queue is
+     * @return the size of the array
+     */
     @Override
     public int capacity() {
         return queueArray.length;
     }
 
+    /**
+     * Lets the user get a true false if the queue is empty or not
+     * @return returns a boolean if queue is empty
+     */
     @Override
     public boolean isEmpty() {
         return (backPointer == -1);
     }
 
+    /**
+     * Lets the user get a true false if the queue is full or not
+     * @return Returns a boolean if the queue is full
+     */
     @Override
     public boolean isFull() {
         boolean r = false;
@@ -124,6 +178,9 @@ public class Queue implements QueueInterface {
         return r;
     }
 
+    /**
+     * Sets queue to empty to be used again
+     */
     @Override
     public void makeEmpty() {
         frontPointer = 0;
