@@ -11,8 +11,8 @@ package edu.hdsb.gwss.JamesBusch.ics4u.u4;
  * @author jamers444
  */
 public class LinkList implements LinkListInterface{
-    Node front;
-    Node back;
+    private Node front;
+    private Node back;
     
     
     public LinkList(){
@@ -38,12 +38,28 @@ public class LinkList implements LinkListInterface{
 
     @Override
     public void addAtFront(String str) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(isEmpty()){
+            this.front = new Node(str, null);
+            this.back = front;
+        }else if(size() == 1){
+            this.front = new Node(str, back);
+        }else{
+            Node holder = new Node(str, front);
+            front = holder;
+        }
+        
     }
 
     @Override
     public void addAtEnd(String str) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(isEmpty()){
+            this.back = new Node(str, null);
+            this.front = back;
+        }else{
+            Node holder = new Node(str, null);
+            this.back.setNext(holder);
+            this.back = holder;
+        }
     }
 
     @Override
@@ -63,12 +79,19 @@ public class LinkList implements LinkListInterface{
 
     @Override
     public String head() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String str = null;
+        if(isEmpty());
+        else str = front.getValue();
+        
+        return str;
     }
 
     @Override
     public String tail() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String str = null;
+        if(isEmpty());
+        else str = back.getValue();
+        
+        return str;
     }
-
 }

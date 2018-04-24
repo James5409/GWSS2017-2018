@@ -47,7 +47,9 @@ public class Stack implements StackInterface{
 
     @Override
     public void push(int value) {
-        if(!isFull()){
+        if(value < 0){
+            System.out.println("Can not take value less than 0");
+        }else if(!isFull()){
             pointer++;
             stackArray[pointer] = value;
         }else{
@@ -73,7 +75,7 @@ public class Stack implements StackInterface{
 
     @Override
     public boolean isFull() {
-        return (pointer + 1 == stackArray.length);
+        return (pointer + 1 == capacity());
       
     }
 
