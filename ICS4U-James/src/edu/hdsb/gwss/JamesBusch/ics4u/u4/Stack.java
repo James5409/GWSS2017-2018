@@ -37,7 +37,7 @@ public class Stack implements StackInterface{
     @Override
     public int pop() {
         int returnNum = -1;
-        if(isEmpty() == false){ 
+        if(!isEmpty()){ 
             returnNum = stackArray[pointer];
             pointer--;
             }

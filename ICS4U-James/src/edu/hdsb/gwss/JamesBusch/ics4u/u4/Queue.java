@@ -27,29 +27,14 @@ public class Queue implements QueueInterface {
     }
 
     /**
-     *
-     * @param capacity th
+     * This creates the stack using a array
+     * Once the queue is made it can't change size
+     * 
+     * @param capacity the size of the queue
      */
     public Queue(int capacity) {
         queueArray = new int[capacity];
     }
-
-    /**
-     *
-     * @return
-     */
-    public int getFrontPointer() {
-        return frontPointer;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getBackPointer() {
-        return backPointer;
-    }
-
     /**
      * This object method lets you look at the front of the queue without
      * changing it
@@ -67,8 +52,9 @@ public class Queue implements QueueInterface {
     }
 
     /**
+     * Gets the int from the back of the queue returning null if it is empty
      *
-     * @return
+     * @return The int at the back for the queue if empty returns null
      */
     @Override
     public Integer back() {
@@ -85,9 +71,7 @@ public class Queue implements QueueInterface {
      */
     @Override
     public void enqueue(Integer value) {//adds another num to the front pointer
-        if (backPointer == queueArray.length - 1 && frontPointer == 0) {
-            System.err.println("can not enqueue a full queue");
-        } else if (backPointer == frontPointer - 1 && backPointer != -1) {
+        if (isFull()) {
             System.err.println("can not enqueue a full queue");
         } else {
             if (backPointer == queueArray.length - 1) {
@@ -103,7 +87,7 @@ public class Queue implements QueueInterface {
     /**
      * This method takes the number from the front of the queue and returns it
      * and pushes up the queue
-     *
+     * 
      * @return integer value at the back of the queue, else if queue is empty
      * return null
      */
@@ -126,6 +110,7 @@ public class Queue implements QueueInterface {
     }
 
     /**
+     * Gets the amount of data in the queue
      * 
      * @return a int of the size the stored data takes up
      */
@@ -147,6 +132,7 @@ public class Queue implements QueueInterface {
 
     /**
      * Lets the user see how big the queue is
+     * 
      * @return the size of the array
      */
     @Override
@@ -156,6 +142,7 @@ public class Queue implements QueueInterface {
 
     /**
      * Lets the user get a true false if the queue is empty or not
+     * 
      * @return returns a boolean if queue is empty
      */
     @Override
@@ -165,6 +152,7 @@ public class Queue implements QueueInterface {
 
     /**
      * Lets the user get a true false if the queue is full or not
+     * 
      * @return Returns a boolean if the queue is full
      */
     @Override

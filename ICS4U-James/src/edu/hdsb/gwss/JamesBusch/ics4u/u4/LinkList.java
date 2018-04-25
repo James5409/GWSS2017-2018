@@ -74,24 +74,28 @@ public class LinkList implements LinkListInterface{
 
     @Override
     public String removeTail() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String str = null;
+        if(!isEmpty()){
+            Node holder = new Node();
+            holder = back.getNext();
+            str = back.getValue();
+            back.setNext(null);
+            back = holder;  
+        }
+        return str;
     }
 
     @Override
     public String head() {
         String str = null;
-        if(isEmpty());
-        else str = front.getValue();
-        
+        if(!isEmpty()) str = front.getValue(); 
         return str;
     }
 
     @Override
     public String tail() {
         String str = null;
-        if(isEmpty());
-        else str = back.getValue();
-        
+        if(!isEmpty()) str = back.getValue();
         return str;
     }
 }
