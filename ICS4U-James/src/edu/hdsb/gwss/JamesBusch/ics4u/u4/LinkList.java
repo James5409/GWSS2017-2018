@@ -11,13 +11,13 @@ package edu.hdsb.gwss.JamesBusch.ics4u.u4;
  * @author jamers444
  */
 public class LinkList implements LinkListInterface{
-    private Node front;
-    private Node back;
+    private Node head;
+    private Node tail;
     
     
     public LinkList(){
-        this.front = null;
-        this.back = null;
+        this.head = null;
+        this.tail = null;
     }
 
     @Override
@@ -27,38 +27,37 @@ public class LinkList implements LinkListInterface{
     
     @Override
     public void makeEmpty() {
-        this.front = null;
-        this.back = null;
+        this.head = null;
+        this.tail = null;
     }
 
     @Override
     public boolean isEmpty() {
-        return(front == null);
+        return(head == null);
     }
 
     @Override
     public void addAtFront(String str) {
         if(isEmpty()){
-            this.front = new Node(str, null);
-            this.back = front;
+            this.head = new Node(str, null);
+            this.tail = head;
         }else if(size() == 1){
-            this.front = new Node(str, back);
+            this.head = new Node(str, tail);
         }else{
-            Node holder = new Node(str, front);
-            front = holder;
+            Node holder = new Node(str, head);
+            head = holder;
         }
-        
     }
 
     @Override
     public void addAtEnd(String str) {
         if(isEmpty()){
-            this.back = new Node(str, null);
-            this.front = back;
+            this.tail = new Node(str, null);
+            this.head = tail;
         }else{
             Node holder = new Node(str, null);
-            this.back.setNext(holder);
-            this.back = holder;
+            this.tail.setNext(holder);
+            this.tail = holder;
         }
     }
 
@@ -69,33 +68,35 @@ public class LinkList implements LinkListInterface{
 
     @Override
     public String removeHead() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       String str = null;
+       if(!isEmpty()){
+           str = head.getValue();
+           Node holder = new Node();
+           holder = head.getNext();
+           head.setNext(null);
+           head = holder;
+       }  
+      return str;
     }
 
+    
+    //Back <-----> Front
     @Override
     public String removeTail() {
-        String str = null;
-        if(!isEmpty()){
-            Node holder = new Node();
-            holder = back.getNext();
-            str = back.getValue();
-            back.setNext(null);
-            back = holder;  
-        }
-        return str;
+        return null;
     }
 
     @Override
     public String head() {
         String str = null;
-        if(!isEmpty()) str = front.getValue(); 
+        if(!isEmpty()) str = head.getValue(); 
         return str;
     }
 
     @Override
     public String tail() {
         String str = null;
-        if(!isEmpty()) str = back.getValue();
+        if(!isEmpty()) str = tail.getValue();
         return str;
     }
 }
