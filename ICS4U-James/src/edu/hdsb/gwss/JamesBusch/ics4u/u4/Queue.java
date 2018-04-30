@@ -15,6 +15,7 @@ public class Queue implements QueueInterface {
     //class varibiles
     private static int DEFULT_SIZE = 5;
     
+    //object varibles
     private int[] queueArray;
     private int frontPointer = 0;
     private int backPointer = -1;
@@ -66,8 +67,9 @@ public class Queue implements QueueInterface {
     }
 
     /**
-     *
-     * @param value
+     * takes a value and adds it to the back of the queue if it is not empty
+     * 
+     * @param value that is added to the back of the queue
      */
     @Override
     public void enqueue(Integer value) {//adds another num to the front pointer

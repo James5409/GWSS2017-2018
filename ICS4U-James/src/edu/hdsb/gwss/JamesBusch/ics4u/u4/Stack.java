@@ -35,7 +35,8 @@ public class Stack implements StackInterface{
     }
     
     /**
-     *
+     * gets the number from the top of the stack without getting rid of the number
+     * 
      * @return the number on the top of the stack
      */
     @Override
@@ -46,7 +47,9 @@ public class Stack implements StackInterface{
     }
 
     /**
-     *
+     * gets the number from the top of the stack and removes that number from
+     * the top
+     * 
      * @return the number at the top of the stack
      */
     @Override
@@ -61,7 +64,8 @@ public class Stack implements StackInterface{
     }
 
     /**
-     *
+     * Pushes int on to the top of the stack if its > -1 and not empty
+     * 
      * @param value the value to be added to the top of the stack if full error is returned
      */
     @Override
@@ -77,7 +81,8 @@ public class Stack implements StackInterface{
     }
 
     /**
-     *
+     * Returns the size of the data in the stack
+     * 
      * @return the size of the stack
      */
     @Override
@@ -86,7 +91,8 @@ public class Stack implements StackInterface{
     }
 
     /**
-     *
+     * Returns the total size of the stack
+     * 
      * @return the amount of room in the array
      */
     @Override
@@ -95,7 +101,8 @@ public class Stack implements StackInterface{
     }
 
     /**
-     *
+     * returns a true false saying if the stack is empty
+     * 
      * @return boolean saying if the stack is empty or not
      */
     @Override
@@ -104,7 +111,8 @@ public class Stack implements StackInterface{
     }
 
     /**
-     *
+     * returns a true false saying if the stack is full
+     * 
      * @return boolean saying if the stack is full or not
      */
     @Override

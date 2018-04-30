@@ -1,7 +1,9 @@
 /*
- *To change this license header, choose License Headers in Project Properties.
- *To change this template file, choose Tools | Templates
- *and open the template in the editor.
+ * James Busch
+ * 30/04/18
+ * LinkList data type
+ * This data type holds a infinate amount of data where each peice of data
+ * looks at the next in the line
  */
 package edu.hdsb.gwss.JamesBusch.ics4u.u4;
 
@@ -10,15 +12,34 @@ package edu.hdsb.gwss.JamesBusch.ics4u.u4;
  * @author jamers444
  */
 public class LinkList implements LinkListInterface {
-
+    //object varibles
     private Node head;
     private Node tail;
 
+    /**
+     * empty link list defaults to no data
+     */
     public LinkList() {
         this.head = null;
         this.tail = null;
     }
+    
+    /**
+     * Constructor that takes in first piece of data
+     * 
+     * @param data sets first part of data for list
+     */
+    public LinkList(String data){
+        this.head = new Node(data, null);
+        this.tail = this.head;
+    }
+    
 
+    /**
+     * Gets the amount of data stored in the link list
+     * 
+     * @return the size that the data takes up
+     */
     @Override
     public int size() {
         int i = 0;
@@ -39,12 +60,19 @@ public class LinkList implements LinkListInterface {
         return i;
     }
 
+    /**
+     * makes the link list empty
+     */
     @Override
     public void makeEmpty() {
         this.head = null;
         this.tail = null;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean isEmpty() {
         return (head == null);
@@ -94,6 +122,10 @@ public class LinkList implements LinkListInterface {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String removeHead() {
         String str = null;
@@ -108,6 +140,11 @@ public class LinkList implements LinkListInterface {
     }
 
     //Back <-----> Front
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String removeTail() {
         String str = null;
@@ -127,6 +164,10 @@ public class LinkList implements LinkListInterface {
         return str;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String head() {
         String str = null;
@@ -136,6 +177,10 @@ public class LinkList implements LinkListInterface {
         return str;
     }
 
+    /**
+     *
+     * @return returns the string at the tail, if empty return null
+     */
     @Override
     public String tail() {
         String str = null;
