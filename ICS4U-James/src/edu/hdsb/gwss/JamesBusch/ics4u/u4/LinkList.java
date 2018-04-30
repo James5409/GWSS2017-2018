@@ -3,28 +3,42 @@
  *To change this template file, choose Tools | Templates
  *and open the template in the editor.
  */
-
 package edu.hdsb.gwss.JamesBusch.ics4u.u4;
 
 /**
  *
  * @author jamers444
  */
-public class LinkList implements LinkListInterface{
+public class LinkList implements LinkListInterface {
+
     private Node head;
     private Node tail;
-    
-    
-    public LinkList(){
+
+    public LinkList() {
         this.head = null;
         this.tail = null;
     }
 
     @Override
     public int size() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int i = 0;
+        boolean cont = true;
+        Node holder = new Node();
+        holder = head;
+        do {
+            if (isEmpty()) {
+                cont = false;
+            } else if (holder.getNext() == null) {
+                i++;
+                cont = false;
+            } else {
+                holder = holder.getNext();
+                i++;
+            }
+        } while (cont == true);
+        return i;
     }
-    
+
     @Override
     public void makeEmpty() {
         this.head = null;
@@ -33,17 +47,17 @@ public class LinkList implements LinkListInterface{
 
     @Override
     public boolean isEmpty() {
-        return(head == null);
+        return (head == null);
     }
 
     @Override
     public void addAtFront(String str) {
-        if(isEmpty()){
+        if (isEmpty()) {
             this.head = new Node(str, null);
             this.tail = head;
-        }else if(size() == 1){
+        } else if (size() == 1) {
             this.head = new Node(str, tail);
-        }else{
+        } else {
             Node holder = new Node(str, head);
             head = holder;
         }
@@ -51,10 +65,10 @@ public class LinkList implements LinkListInterface{
 
     @Override
     public void addAtEnd(String str) {
-        if(isEmpty()){
+        if (isEmpty()) {
             this.tail = new Node(str, null);
             this.head = tail;
-        }else{
+        } else {
             Node holder = new Node(str, null);
             this.tail.setNext(holder);
             this.tail = holder;
@@ -63,40 +77,71 @@ public class LinkList implements LinkListInterface{
 
     @Override
     public void remove(String str) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (isEmpty()); 
+        else if (head.getValue().equals(str)) {
+            removeHead();
+        } else if (tail.getValue().equals(str)) {
+            removeTail();
+        } else {
+            Node holder = head;
+            do{
+                holder = holder.getNext();
+            }while(!holder.getNext().getValue().equals(str));
+            Node holderTwo = holder.getNext();
+            holder.setNext(holderTwo.getNext());
+            holderTwo.setNext(null);
+            
+        }
     }
 
     @Override
     public String removeHead() {
-       String str = null;
-       if(!isEmpty()){
-           str = head.getValue();
-           Node holder = new Node();
-           holder = head.getNext();
-           head.setNext(null);
-           head = holder;
-       }  
-      return str;
+        String str = null;
+        if (!isEmpty()) {
+            str = head.getValue();
+            Node holder = new Node();
+            holder = head.getNext();
+            head.setNext(null);
+            head = holder;
+        }
+        return str;
     }
 
-    
     //Back <-----> Front
     @Override
     public String removeTail() {
-        return null;
+        String str = null;
+        Node holder = this.head;
+        if (!isEmpty()) {
+            str = tail.getValue();
+            if (size() == 1) {
+                makeEmpty();
+            } else {
+                do {
+                    holder = holder.getNext();
+                } while (holder.getNext() != tail);
+                holder.setNext(null);
+                tail = holder;
+            }
+        }
+        return str;
     }
 
     @Override
     public String head() {
         String str = null;
-        if(!isEmpty()) str = head.getValue(); 
+        if (!isEmpty()) {
+            str = head.getValue();
+        }
         return str;
     }
 
     @Override
     public String tail() {
         String str = null;
-        if(!isEmpty()) str = tail.getValue();
+        if (!isEmpty()) {
+            str = tail.getValue();
+        }
         return str;
     }
 }

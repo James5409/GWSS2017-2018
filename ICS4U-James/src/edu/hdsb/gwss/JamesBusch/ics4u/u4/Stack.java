@@ -18,15 +18,26 @@ public class Stack implements StackInterface{
     private int[] stackArray;
     private int pointer = -1;
     
+    /**
+     * Default constructor sets capacity to 5
+     */
     public Stack(){
         stackArray = new int[5];
         System.err.println("");
     }
     
+    /**
+     *
+     * @param size The size of the stack to be created
+     */
     public Stack(int size){
         stackArray = new int[size];
     }
     
+    /**
+     *
+     * @return the number on the top of the stack
+     */
     @Override
     public int top() {
         int r = -1;
@@ -34,6 +45,10 @@ public class Stack implements StackInterface{
         return r;
     }
 
+    /**
+     *
+     * @return the number at the top of the stack
+     */
     @Override
     public int pop() {
         int returnNum = -1;
@@ -45,6 +60,10 @@ public class Stack implements StackInterface{
         return returnNum;
     }
 
+    /**
+     *
+     * @param value the value to be added to the top of the stack if full error is returned
+     */
     @Override
     public void push(int value) {
         if(value < 0){
@@ -57,28 +76,46 @@ public class Stack implements StackInterface{
         }
     }
 
+    /**
+     *
+     * @return the size of the stack
+     */
     @Override
     public int size() {
-        //return stackArray.length - (pointer + 1); 
         return pointer + 1;
     }
 
+    /**
+     *
+     * @return the amount of room in the array
+     */
     @Override
     public int capacity() {
         return stackArray.length;
     }
 
+    /**
+     *
+     * @return boolean saying if the stack is empty or not
+     */
     @Override
     public boolean isEmpty() {
         return (pointer == -1);
     }
 
+    /**
+     *
+     * @return boolean saying if the stack is full or not
+     */
     @Override
     public boolean isFull() {
         return (pointer + 1 == capacity());
       
     }
 
+    /**
+     * makes the stack empty to be reused from the start
+     */
     @Override
     public void makeEmpty() {
         pointer = -1;

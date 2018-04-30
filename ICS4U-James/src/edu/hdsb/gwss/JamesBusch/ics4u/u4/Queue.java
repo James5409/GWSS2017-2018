@@ -120,7 +120,7 @@ public class Queue implements QueueInterface {
         if (isEmpty()) {
             r = 0;
         } else if (isFull()) {
-            r = 10;
+            r = capacity();
         } else if (backPointer >= frontPointer) {
             r = ((backPointer - frontPointer) + 1);
         } else {
