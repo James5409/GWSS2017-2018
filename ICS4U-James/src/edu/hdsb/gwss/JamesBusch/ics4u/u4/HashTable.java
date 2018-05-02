@@ -28,7 +28,11 @@ public class HashTable implements HashTableInterface{
     
     @Override
     public int size() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int sizeCounter = 0;
+        for (int i = 0; i < capacity(); i++) {
+            if(hashTable[i] != null) sizeCounter++;
+        }
+        return sizeCounter;
     }
 
     @Override
@@ -53,7 +57,14 @@ public class HashTable implements HashTableInterface{
 
     @Override
     public void rehash() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Student[] holderTable;
+        int newSize = capacity() + size() * 4;
+        holderTable = hashTable;
+        hashTable = new Student[newSize];
+        for (int i = 0; i < holderTable.length; i++) {
+            if(holderTable[i] == null);
+            else put(holderTable[i].hashCode(), holderTable[i]);
+        }
     }
 
     @Override
@@ -116,12 +127,11 @@ public class HashTable implements HashTableInterface{
         
         boolean contain = false;
         if(!isEmpty()){
-            for (int i = 0; i < hashTable.length; i++) { 
+            for (int i = 0; i < capacity(); i++) { 
                 if(hashTable[i].getId() == key)contain = true;  
             }
         }
-        return contain;
-        
+        return contain;  
     }
 
     @Override

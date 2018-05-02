@@ -70,10 +70,10 @@ public class Student {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 11 * hash + Objects.hashCode(this.id);
-        hash = 11 * hash + Objects.hashCode(this.phone);
-        hash = 11 * hash + Objects.hashCode(this.firstName);
-        hash = 11 * hash + Objects.hashCode(this.lastName);
+        if(this.id > -1) hash = 11 * hash + Objects.hashCode(this.id);
+        if(this.phone > -1) hash = 11 * hash + Objects.hashCode(this.phone);
+        if(this.firstName != null) hash = 11 * hash + Objects.hashCode(this.firstName);
+        if(this.lastName != null)  hash = 11 * hash + Objects.hashCode(this.lastName);
         return hash;
     }
 
