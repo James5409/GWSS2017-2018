@@ -58,8 +58,9 @@ public class HashTable implements HashTableInterface{
     @Override
     public void rehash() {
         Student[] holderTable;
-        int newSize = capacity() + size() * 4;
         holderTable = hashTable;
+        int newSize = capacity() + size() * 4;
+        while(!isPrime(newSize))newSize++;
         hashTable = new Student[newSize];
         for (int i = 0; i < holderTable.length; i++) {
             if(holderTable[i] == null);
@@ -122,21 +123,21 @@ public class HashTable implements HashTableInterface{
 
     @Override
     public boolean containsKey(int key) {
-       
-        int position = hash(key);
-        
-        boolean contain = false;
-        if(!isEmpty()){
-            for (int i = 0; i < capacity(); i++) { 
-                if(hashTable[i].getId() == key)contain = true;  
-            }
-        }
-        return contain;  
+        boolean contains = false;
+        Student student = get(key);
+        if(student != null)contains = true;
+        return contains;
     }
 
     @Override
     public int hash(int key) {
         return key % capacity();
     }
-
-}
+    
+    private boolean isPrime(int num) {
+        if (num % 2 == 0) return false;
+        for (int i = 3; i * i < num; i += 2)
+            if (num % i == 0) return false;
+        return true;
+    }  
+}  

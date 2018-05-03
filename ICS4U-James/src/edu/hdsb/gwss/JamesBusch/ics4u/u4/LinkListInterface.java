@@ -39,12 +39,4 @@ public interface LinkListInterface {
     public String head();
     public String tail();
     
-    /**
-     * Creates a string that lists the nodes of the linked list.
-     *
-     * @return string
-     */
-    @Override
-    public String toString( );
-
-}
+}  

@@ -114,7 +114,7 @@ public class LinkList implements LinkListInterface {
             Node holder = head;
             do{
                 holder = holder.getNext();
-            }while(!holder.getNext().getValue().equals(str));
+            }while(!holder.getNext().getValue().equals(str) && holder != null);
             Node holderTwo = holder.getNext();
             holder.setNext(holderTwo.getNext());
             holderTwo.setNext(null);
@@ -131,10 +131,14 @@ public class LinkList implements LinkListInterface {
         String str = null;
         if (!isEmpty()) {
             str = head.getValue();
-            Node holder = new Node();
-            holder = head.getNext();
-            head.setNext(null);
-            head = holder;
+            if(size() == 1){
+                makeEmpty();
+            }else{
+                Node holder = new Node();
+                holder = head.getNext();
+                head.setNext(null);
+                head = holder;
+            }
         }
         return str;
     }
@@ -189,4 +193,19 @@ public class LinkList implements LinkListInterface {
         }
         return str;
     }
+
+    @Override
+    public String toString() {
+        String str =  head.getValue() + "->";
+        Node holder = head.getNext();
+        for (int i = 2; i < size(); i++) {
+            str = str + holder.getValue() + "->";
+            holder = holder.getNext();
+        }
+        str = str + tail.getValue();
+        return str;
+    }
+    
+    
+    
 }
