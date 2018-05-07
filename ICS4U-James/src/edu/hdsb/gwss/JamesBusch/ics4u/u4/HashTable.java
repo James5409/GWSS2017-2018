@@ -17,10 +17,17 @@ public class HashTable implements HashTableInterface{
     //object varibles
     private Student[] hashTable;
     
+    /**
+     *
+     */
     public HashTable(){
         hashTable = new Student[DEFUALT_SIZE];
     }
     
+    /**
+     *
+     * @param size
+     */
     public HashTable(int size){
         hashTable = new Student[size];
     }
@@ -55,8 +62,8 @@ public class HashTable implements HashTableInterface{
        return(size() == 0);
     }
 
-    @Override
-    public void rehash() {
+    
+    private void rehash() {
         Student[] holderTable;
         holderTable = hashTable;
         int newSize = capacity() + size() * 4;
@@ -76,13 +83,18 @@ public class HashTable implements HashTableInterface{
         Student student = null;
         
         if(position < 0);
+        else if(isEmpty());
         else{
             while(!found){
-                if(hashTable[position].hashCode() == key){
+                if(hashTable[position] == null){
+                    if(position == capacity() - 1)position = 0;
+                    else position++;
+                }
+                else if(hashTable[position].hashCode() == key){
                     found = true;
                     student = hashTable[position];
                 }else{
-                    if(position == capacity())position = 0;
+                    if(position == capacity() - 1)position = 0;
                     else position++;
                 }
                 if(position == positionChecker)found = true;
@@ -105,6 +117,7 @@ public class HashTable implements HashTableInterface{
                     placed = true;
                 }
                 else{
+                    if(hashTable[position].equals(value))placed = true;
                     if(position == capacity())position = 0;
                     else position++;
                 }
@@ -114,19 +127,22 @@ public class HashTable implements HashTableInterface{
 
     @Override
     public boolean contains(Student value) {
-        
-        for (int i = 0; i < hashTable.length; i++) {
-            if(hashTable[i].equals(value))return true;
+        if (this.isEmpty()) return false;
+        for (int i = 0; i < capacity(); i++) {
+            if(hashTable[i] == null);
+            else if(hashTable[i].equals(value))return true;
         }
         return false;
     }
 
     @Override
     public boolean containsKey(int key) {
-        boolean contains = false;
-        Student student = get(key);
-        if(student != null)contains = true;
-        return contains;
+        for (int i = 0; i < capacity(); i++) {
+            if(hashTable[i] == null);
+            else if(hashTable[i].getId() == key)return true;
+            
+        }
+        return false;
     }
 
     @Override

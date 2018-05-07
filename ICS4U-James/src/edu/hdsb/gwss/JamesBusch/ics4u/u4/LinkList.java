@@ -71,13 +71,16 @@ public class LinkList implements LinkListInterface {
 
     /**
      *
-     * @return
+     * @return boolean telling if true
      */
     @Override
     public boolean isEmpty() {
         return (head == null);
     }
 
+    
+    
+    
     @Override
     public void addAtFront(String str) {
         if (isEmpty()) {
@@ -123,8 +126,9 @@ public class LinkList implements LinkListInterface {
     }
 
     /**
-     *
-     * @return
+     * Gets the data from the head of the link list and removes it
+     * 
+     * @return a string of the data at the head of the link list
      */
     @Override
     public String removeHead() {
@@ -143,11 +147,10 @@ public class LinkList implements LinkListInterface {
         return str;
     }
 
-    //Back <-----> Front
-
     /**
-     *
-     * @return
+     * Gets the string from the tail of the link list and removes it
+     * 
+     * @return a string of the data at the tail null if empty
      */
     @Override
     public String removeTail() {
@@ -169,8 +172,9 @@ public class LinkList implements LinkListInterface {
     }
 
     /**
-     *
-     * @return
+     * Gets the data at the head of the link list without removing it
+     * 
+     * @return a string of the head of the link list
      */
     @Override
     public String head() {
@@ -182,7 +186,8 @@ public class LinkList implements LinkListInterface {
     }
 
     /**
-     *
+     * Gets the data at the tail of the link list without removing it
+     * 
      * @return returns the string at the tail, if empty return null
      */
     @Override
@@ -194,6 +199,12 @@ public class LinkList implements LinkListInterface {
         return str;
     }
 
+    
+    /**
+     * Creates a clean string of the link list and all the data
+     *
+     * @return a string of the whole link list
+     */
     @Override
     public String toString() {
         String str =  head.getValue() + "->";

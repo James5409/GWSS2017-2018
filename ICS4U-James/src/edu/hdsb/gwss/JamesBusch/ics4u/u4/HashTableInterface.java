@@ -35,8 +35,8 @@ public interface HashTableInterface {
      * Increases the capacity of and internally reorganizes this hashtable, in 
      * order to accommodate and access its entries more efficiently.
      */
-    public void rehash();
-    
+//    public void rehash();
+//    
     /**
      * Returns the value to which the specified key is mapped, or null if this 
      * map contains no mapping for the key.
