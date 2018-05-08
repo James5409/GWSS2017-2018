@@ -1,7 +1,8 @@
 /*
- *To change this license header, choose License Headers in Project Properties.
- *To change this template file, choose Tools | Templates
- *and open the template in the editor.
+ * James Busch
+ * 8/5/18
+ * This is the hashtable that creates a large array and places objects inside of 
+ * it for a more efficent way of storing data
  */
 
 package edu.hdsb.gwss.JamesBusch.ics4u.u4;
@@ -18,7 +19,7 @@ public class HashTable implements HashTableInterface{
     private Student[] hashTable;
     
     /**
-     *
+     * defualts size of the hash table to 53
      */
     public HashTable(){
         hashTable = new Student[DEFUALT_SIZE];
@@ -26,7 +27,7 @@ public class HashTable implements HashTableInterface{
     
     /**
      *
-     * @param size
+     * @param size the size of the hashTable
      */
     public HashTable(int size){
         hashTable = new Student[size];
