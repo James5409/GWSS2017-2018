@@ -18,6 +18,15 @@ public interface LockInterface {
     
     public void lock();
     
-    public void unlock();
+    //private/protected methods
+    /*
+     * private void unlock();
+     * private boolean lockOut();
+     * protected void setMaxNum(int maxNum);
+     * protected void setComboSize(int size);
+     * protected void setCombo(int[] combo);
+     * protected void seeCombo();
+     * protected boolean inRange(int[] combo);
+     */
     
 }

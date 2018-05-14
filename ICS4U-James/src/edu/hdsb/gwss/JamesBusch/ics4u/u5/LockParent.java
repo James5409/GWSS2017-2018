@@ -9,7 +9,7 @@ package edu.hdsb.gwss.JamesBusch.ics4u.u5;
  *
  * @author jamers444
  */
-public class LockParent implements LockInterface {
+public abstract class LockParent implements LockInterface {
 
     private boolean lockState = false;
     private boolean lockedOut = false;
@@ -28,33 +28,48 @@ public class LockParent implements LockInterface {
     
 
     protected void setCombo(int[] combo) {
-        if(inRange(combo))this.combo = combo;
-        else System.out.println("Number in combo out of range");
+        if(lockState == false){
+            if(inRange(combo))this.combo = combo;
+            else System.out.println("Number in combo out of range");
+        }else{
+            System.out.println("Must unlock before setting combo");
+        }
     }
 
     @Override
     public boolean isLocked() {
+        System.out.println("Checking lock state");
         return lockState;
     }
 
     @Override
     public void lock() {
+        System.out.println("Locking lock");
         lockState = true;
     }
 
-    @Override
-    public void unlock() {
+    
+    private void unlock() {
+        System.out.println("unlocked");
         lockState = false;
     }
 
     @Override
     public void tryUnlock(int[] combo) {
-        if (lockedOut); else if (lockState == false); else {
+        System.out.println("trying unlock");
+        if (lockedOut)System.out.println("LOCKED OUT CAN'T ACCSESS LOCK"); 
+        else if (lockState == false)System.out.println("Already unlocked"); 
+        else if(inRange(combo)){
             if (combo.equals(this.combo)) {
                 unlock();
+                attempts = 0;
+                System.out.println("Unlocked");
             } else {
                 attempts++;
+                System.out.println("inccorect code you have failed" + attempts + "times");
             }
+        }else{
+            System.out.println("N");
         }
     }
 
@@ -67,19 +82,22 @@ public class LockParent implements LockInterface {
     }
 
   
-    protected void seeCombo() {
-        String comboData = null;
-            for (int i = 0; i < this.combo.length; i++) {
-                comboData = comboData + this.combo[i] + " ";
-            }
-        System.out.println(comboData);
+    protected int[] seeCombo() {
+        if(comboSeen == false) return this.combo;
+        else{
+            System.out.println("Combo already seen returning null");
+            return null;
+        }
     }
     
-    protected boolean inRange(int[] combo){
+    private boolean inRange(int[] combo){
         for (int i = 0; i < combo.length; i++) {
             int j = combo[i];
             if(j >= 0 || j <= this.maxNum);
-            else return false;
+            else{
+                System.out.println("Number at index" + i + "out of range");
+                return false;
+            }
         }
         return true;
     }
