@@ -17,12 +17,63 @@ public class LockClient {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        DubdlyLock lp = new DubdlyLock();
+        int[] comboHolder = new int[3];
+        int[] wrongCombo = new int[3];
         
         
+        DubdlyLock dl = new DubdlyLock();
+        comboHolder = dl.seeCombo();
+        dl.seeCombo();
         
+        assert dl.isLocked() == false;
         
+        for (int i = 0; i < comboHolder.length; i++) {
+            System.out.println(comboHolder[i]);
+        }
+        for (int i = 0; i < wrongCombo.length; i++) {//makes sure there are no matching digits
+            if(comboHolder[i] != 1) wrongCombo[i] = 1;
+            else wrongCombo[i] = 2;
+        }
         
+        dl.lock();//should lock
+        dl.lock();//should say already locked
+        assert dl.isLocked() == true;
+        dl.tryUnlock(wrongCombo);
+        assert dl.isLocked() == true;
+        dl.tryUnlock(comboHolder);
+        assert dl.isLocked() == false;
+        dl.tryUnlock(wrongCombo);//should say already unlocked
+        assert dl.getSerialNumber() == 1;
+        
+        MasterLock ml = new MasterLock();
+        assert ml.isLocked() == false;
+        comboHolder = ml.seeCombo();
+        ml.seeCombo();
+        for (int i = 0; i < comboHolder.length; i++) {
+            System.out.println(comboHolder[i]);
+        }
+        for (int i = 0; i < wrongCombo.length; i++) {//makes sure there are no matching digits
+            if(comboHolder[i] != 1) wrongCombo[i] = 1;
+            else wrongCombo[i] = 2;
+        }
+        ml.lock();
+        ml.lock();
+        assert ml.isLocked() == true;
+        ml.tryUnlock(wrongCombo);
+        assert ml.isLocked() == true;
+        ml.tryUnlock(comboHolder);
+        assert ml.isLocked() == false;
+        ml.tryUnlock(wrongCombo);
+        assert ml.isLocked() == false;
+        assert ml.getSerialNumber() == 2;
+        
+        MasterULock mul = new MasterULock();
+        comboHolder = new int[4];
+        assert mul.isLocked() == false;
+        assert mul.getSerialNumber() == 3;
+        mul.lock();
+        assert mul.isLocked() == true;
+        mul.tryUnlock(comboHolder);
         
     }
     

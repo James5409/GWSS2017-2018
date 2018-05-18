@@ -1,7 +1,8 @@
 /*
- *To change this license header, choose License Headers in Project Properties.
- *To change this template file, choose Tools | Templates
- *and open the template in the editor.
+ * James Busch
+ * ICS4U1
+ * 18/05/18
+ * The DubdlyLock object to be called by a user
  */
 
 package edu.hdsb.gwss.JamesBusch.ics4u.u5;
@@ -10,11 +11,14 @@ package edu.hdsb.gwss.JamesBusch.ics4u.u5;
  *
  * @author jamers444
  */
-public class DubdlyLock extends LockParent{
+public class DubdlyLock extends FixedLock{
     private static int MAX_NUM = 59;
     private static int COMBO_LENGTH = 3;
     private static int[] holderCombo;
     
+    /**
+     * Constructor for the Dubdly Lock creates a random code when called
+     */
     public DubdlyLock(){
         holderCombo = new int[COMBO_LENGTH];
         setComboSize(COMBO_LENGTH);
