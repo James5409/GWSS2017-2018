@@ -97,7 +97,6 @@ public abstract class LockParent implements LockInterface {
     }
 
     private void unlock() {
-        System.out.println("unlocked");
         lockState = false;
     }
 
