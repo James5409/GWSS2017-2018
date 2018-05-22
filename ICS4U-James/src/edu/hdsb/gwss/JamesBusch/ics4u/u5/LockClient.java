@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * James Busch
+ * ICS4U1
+ * 21/05/18
+ * tester for all 4 locks
  */
 package edu.hdsb.gwss.JamesBusch.ics4u.u5;
 
