@@ -22,10 +22,40 @@ public class AlbumStore {
         
         RandomAccessFile recordFile = new RandomAccessFile(file, "rw");
         
-        recordFile.seek(0);
+        recordFile.seek(recordFile.length());
+        
+        Album a1 = new Album("Best Buds", "Mom Jeans", 100000, 11, 4.5, 'E', false);
+        Album a2 = new Album("Afraid of Heights", "Billy Talent", 800000, 12, 4.0, 'L', true);
+        Album a3 = new Album("Foo Fighters", "Foo Fighters", 10000000, 12, 5.0, 'L', false);
+        
+        recordFile.writeChars(a1.getAlbumName());
+        recordFile.writeChars(a1.getArtistName());
+        recordFile.writeInt(a1.getAlbumSales());
+        recordFile.writeInt(a1.getAmountOfTracks());
+        recordFile.writeDouble(a1.getRaiting());
+        recordFile.writeChar(a1.getLongPlay());
+        recordFile.writeBoolean(a1.isClean());
+        
+        System.out.println(recordFile.length());
+        
+        recordFile.writeChars(a2.getAlbumName());
+        recordFile.writeChars(a2.getArtistName());
+        recordFile.writeInt(a2.getAlbumSales());
+        recordFile.writeInt(a2.getAmountOfTracks());
+        recordFile.writeDouble(a2.getRaiting());
+        recordFile.writeChar(a2.getLongPlay());
+        recordFile.writeBoolean(a2.isClean());
+        
+        recordFile.writeChars(a3.getAlbumName());
+        recordFile.writeChars(a3.getArtistName());
+        recordFile.writeInt(a3.getAlbumSales());
+        recordFile.writeInt(a3.getAmountOfTracks());
+        recordFile.writeDouble(a3.getRaiting());
+        recordFile.writeChar(a3.getLongPlay());
+        recordFile.writeBoolean(a3.isClean());
         
         
-        
+        recordFile.close();
     }
     
 }
