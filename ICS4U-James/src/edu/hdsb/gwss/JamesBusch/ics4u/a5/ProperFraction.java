@@ -28,6 +28,7 @@ public class ProperFraction extends Fraction{
         
         super.numerator = numerator;
         super.denominator = denominator;
+        super.reduce();
     }
     
     

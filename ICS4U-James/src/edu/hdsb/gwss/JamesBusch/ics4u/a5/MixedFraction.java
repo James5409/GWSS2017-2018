@@ -42,12 +42,14 @@ public class MixedFraction extends Fraction{
         
         super.numerator = numerator + (wholeNum * denominator);
         super.denominator = denominator; 
+        super.reduce();
        
     }
     
     @Override
     public String toString(){
-        return this.wholeNum + "x" + this.numerator + "/" + this.denominator;
+        improperFraction j = new improperFraction(super.numerator, super.denominator);
+        return j.toString();
     }
     
     public improperFraction toImproper(){

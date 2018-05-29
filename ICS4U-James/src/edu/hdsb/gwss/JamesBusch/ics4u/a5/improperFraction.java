@@ -20,6 +20,7 @@ public class improperFraction extends Fraction{
     public improperFraction(int numerator, int denominator){
         super.numerator = numerator;
         super.denominator = denominator;
+        super.reduce();
     }
  
     public MixedFraction toMixed(){
