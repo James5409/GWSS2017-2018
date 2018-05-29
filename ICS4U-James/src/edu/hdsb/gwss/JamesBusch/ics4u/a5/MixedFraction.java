@@ -50,4 +50,8 @@ public class MixedFraction extends Fraction{
         return this.wholeNum + "x" + this.numerator + "/" + this.denominator;
     }
     
+    public improperFraction toImproper(){
+        return new improperFraction(super.numerator, super.denominator);
+    }
+    
 }
