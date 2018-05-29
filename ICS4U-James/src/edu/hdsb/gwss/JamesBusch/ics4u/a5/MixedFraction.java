@@ -48,8 +48,8 @@ public class MixedFraction extends Fraction{
     
     @Override
     public String toString(){
-        improperFraction j = new improperFraction(super.numerator, super.denominator);
-        return j.toString();
+        
+        return wholeNum + "x" + super.numerator + "/" + super.denominator;
     }
     
     public improperFraction toImproper(){
