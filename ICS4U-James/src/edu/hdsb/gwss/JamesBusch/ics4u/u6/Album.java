@@ -1,7 +1,9 @@
 /*
- *To change this license header, choose License Headers in Project Properties.
- *To change this template file, choose Tools | Templates
- *and open the template in the editor.
+ * James Busch
+ * ICS4U
+ * 05/06/18
+ * Album object
+ * holds all data about a album 
  */
 
 package edu.hdsb.gwss.JamesBusch.ics4u.u6;
@@ -20,20 +22,19 @@ public class Album {
     private double raiting = 0;
     private char longPlay = 'N';
     private boolean clean = false; 
-    //private int id = -1;
 
     /**
-     *
+     * amount of characters in the albums name
      */
     public static final int ALBUM_NAME_SIZE = 17;
 
     /**
-     *
+     * amount of characters the artists name
      */
     public static final int ARTIST_NAME_SIZE = 15;
 
     /**
-     *
+     * total byte size of the album
      */
     public static final int ALBUM_SIZE = 83;
     
@@ -41,7 +42,7 @@ public class Album {
     StringBuilder sb;
     
     /**
-     *
+     * sets all vales to default values if empty
      */
     public Album(){
         setAlbumName(null);
@@ -58,10 +59,10 @@ public class Album {
      * @param albumName Name of the album 17 chars long
      * @param artistName Name of artist 15 chars long
      * @param albumSales Sales of the album
-     * @param amountOfTracks Amounf of tracks
-     * @param raiting
-     * @param longPlay
-     * @param clean
+     * @param amountOfTracks Amount of tracks
+     * @param raiting the albums raiting
+     * @param longPlay if it is a EP or LP
+     * @param clean if the album is clean or explicit 
      */
     public Album(String albumName, String artistName, int albumSales, int amountOfTracks, double raiting, char longPlay, boolean clean){
         setAlbumName(albumName);
@@ -75,15 +76,15 @@ public class Album {
 
     /**
      *
-     * @return
+     * @return the albums name
      */
     public String getAlbumName() {
         return albumName;
     }
 
     /**
-     *
-     * @param albumName
+     * sets the albums title and makes it the correct length
+     * @param albumName the albums title
      */
     public void setAlbumName(String albumName) {
         sb = new StringBuilder();
@@ -99,16 +100,16 @@ public class Album {
     }
 
     /**
-     *
-     * @return
+     * gets the artists name
+     * @return the artists name
      */
     public String getArtistName() {
         return artistName;
     }
 
     /**
-     *
-     * @param artistName
+     * gets the artists name and sets it to the correct length
+     * @param artistName takes the artist name
      */
     public void setArtistName(String artistName) {
         sb = new StringBuilder();
@@ -124,32 +125,32 @@ public class Album {
     }
 
     /**
-     *
-     * @return
+     * gets the amount of records sold
+     * @return the amount of record sales
      */
     public int getAlbumSales() {
         return albumSales;
     }
 
     /**
-     *
-     * @param albumSales
+     * setting current record sales
+     * @param albumSales how many copies the record has sold
      */
     public void setAlbumSales(int albumSales) {
         this.albumSales = albumSales;
     }
 
     /**
-     *
-     * @return
+     * getting the amount of tracks on a record
+     * @return the amount of tracks on the record
      */
     public int getAmountOfTracks() {
         return amountOfTracks;
     }
 
     /**
-     *
-     * @param amountOfTracks
+     * sets the amount of songs on a album
+     * @param amountOfTracks amount of tracks of the record
      */
     public void setAmountOfTracks(int amountOfTracks) {
         this.amountOfTracks = amountOfTracks;
@@ -157,14 +158,14 @@ public class Album {
 
     /**
      *
-     * @return
+     * @return the raiting of the album
      */
     public double getRaiting() {
         return raiting;
     }
 
     /**
-     *
+     * Sets the albums raiting
      * @param raiting the raiting of the album
      */
     public void setRaiting(double raiting) {
@@ -172,15 +173,15 @@ public class Album {
     }
 
     /**
-     *
-     * @return
+     * gets the char representing ep or lp
+     * @return E for ep and L for lp
      */
     public char getLongPlay() {
         return longPlay;
     }
 
     /**
-     *
+     * sets the char for LP or EP
      * @param longPlay if it is a LP or EP
      */
     public void setLongPlay(char longPlay) {
@@ -188,7 +189,7 @@ public class Album {
     }
 
     /**
-     *
+     * checks if the album is clean
      * @return if the album is clean
      */
     public boolean isClean() {
@@ -196,7 +197,7 @@ public class Album {
     }
 
     /**
-     *
+     * sets if the album is clean or explicit
      * @param clean if the album is clean or explicit
      */
     public void setClean(boolean clean) {
