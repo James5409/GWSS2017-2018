@@ -6,6 +6,8 @@
 
 package edu.hdsb.gwss.JamesBusch.ics4u.u6;
 
+import java.util.Objects;
+
 /**
  *
  * @author jamers444
@@ -18,7 +20,7 @@ public class Album {
     private double raiting = 0;
     private char longPlay = 'N';
     private boolean clean = false; 
-    private int id = -1;
+    //private int id = -1;
 
     /**
      *
@@ -42,7 +44,13 @@ public class Album {
      *
      */
     public Album(){
-    
+        setAlbumName(null);
+        setArtistName(null);
+        setAlbumSales(0);
+        setAmountOfTracks(0);
+        setRaiting(0);
+        setLongPlay('n');
+        setClean(true);
     }
     
     /**
@@ -82,7 +90,7 @@ public class Album {
         if ( albumName != null ) {
             sb.append( albumName.trim() );
         } else {
-            sb.append( "TBD" );
+            sb.append( "TBD".trim() );
         }
 
         // trucates or pads the string
@@ -107,7 +115,7 @@ public class Album {
         if ( artistName != null ) {
             sb.append( artistName.trim() );
         } else {
-            sb.append( "TBD" );
+            sb.append( "TBD".trim() );
         }
 
         // trucates or pads the string
@@ -196,8 +204,37 @@ public class Album {
     }   
     
     public boolean isValid(){
-        boolean valid = false;
-        if(albumName != null && artistName != null)valid = true;
+        boolean valid = true;
+        if(this.albumName.trim().equals("TBD") || this.artistName.trim().equals("TBD"))valid = false;
         return valid;
     }
+
+    @Override
+    public String toString() {
+        return "Album{" + "albumName=" + albumName + ", artistName=" + artistName + ", albumSales=" + albumSales + ", amountOfTracks=" + amountOfTracks + ", raiting=" + raiting + ", longPlay=" + longPlay + ", clean=" + clean + '}';
+    }
+    
+    
+    
+    public boolean equals(Album album) {
+        if(this.isValid() && album.isValid()){
+            if(this.albumName.equals(album.getAlbumName())){
+                if(this.artistName.equals(album.getArtistName())){
+                    if(this.amountOfTracks == album.getAmountOfTracks()){
+                        if(this.albumSales == album.getAlbumSales()){
+                            if(this.raiting == album.getRaiting()){
+                                if(this.longPlay == album.getLongPlay()){
+                                    if(this.clean == album.isClean()) return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
+    
+    
 }
